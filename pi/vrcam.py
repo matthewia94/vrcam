@@ -31,6 +31,13 @@ def setServo(servo, degree):
     servoCommand = str(servo) + '=' + str(pwm) + '\n'
     f.write(servoCommand)
     f.close()
+    
+def exit():
+    f = open('/dev/pi-blaster', 'w') 
+    f.write('release ' + str(yawServo) + '\n')
+    f.write('release ' + str(pitchServo) + '\n')
+    f.write('release ' + str(rollServo) + '\n')
+    f.close()
 
 if __name__ == "__main__":
     init() 
@@ -52,3 +59,5 @@ if __name__ == "__main__":
             elif command[0] == 'r':
                 setServo(rollServo, angle)
                 print('Setting roll servo to ' + str(angle) + ' degrees')
+    
+    exit()
