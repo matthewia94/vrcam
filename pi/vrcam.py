@@ -5,9 +5,6 @@ __author__ = "Matt Anderson"
 #Servos will use pins 21, 22 and 23 for servo pwm signals
 #PWM will be generated using the pi-blaster: https://github.com/sarfata/pi-blaster
 
-#File to write servo commands to
-f = open('/dev/pi-blaster', 'w')
-
 #Scalar values to scale pwm duty cycles to degrees
 maxServoPwm = 0.3 #30%
 minServoPwm = 0.05 #5%
@@ -20,16 +17,20 @@ pitchServo = 22
 rollServo = 23
 
 def init(): 
+    f = open('/dev/pi-blaster', 'w')
     f.write(str(yawServo) + '=0.1\n') #initialize yawServo
     f.write(str(pitchServo) + '=0.1\n') #initialize pitchServo
     f.write(str(rollServo) + '=0.1\n') #initialize rollServo
+    f.close()
     
 def setServo(servo, degree):
+    f = open('/dev/pi-blaster', 'w')
     degreeRange = maxServoDegrees - minServoDegrees
     pwmRange = maxServoPwm - minServoDegrees
     pwm = (((degree - minServoDegrees) * pwmRange) / degreeRange) + minServoPwm
     servoCommand = str(servo) + '=' + str(pwm) + '\n'
     f.write(servoCommand)
+    f.close()
 
 if __name__ == "__main__":
     init() 
