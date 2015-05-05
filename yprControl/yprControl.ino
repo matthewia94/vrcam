@@ -21,7 +21,7 @@ void setup() {
   pitchServo.attach(3);
   pitchServo.write(150);
   
-  rollServo.attach(2);
+  rollServo.attach(5);
   rollServo.write(100);
   
   //Setup stepper motor driver
