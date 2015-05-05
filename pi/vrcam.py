@@ -1,5 +1,8 @@
 #/usr/bin/env python
 
+import cv2
+from videoThread import videoThread
+
 __author__ = "Matt Anderson"
 
 #Servos will use pins 21, 22 and 23 for servo pwm signals
@@ -17,6 +20,11 @@ pitchServo = 22
 rollServo = 23
 
 def init(): 
+    #OpenCV setup
+    cam = cv2.VideoCapture(0)
+    thread1 = videoThread(cam)
+    thread1.start()
+
     f = open('/dev/pi-blaster', 'w')
     f.write(str(yawServo) + '=0.1\n') #initialize yawServo
     f.write(str(pitchServo) + '=0.1\n') #initialize pitchServo
