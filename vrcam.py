@@ -32,7 +32,7 @@ def exit():
     
 
 if __name__ == "__main__":
-    init() 
+    init()
 
     command = ''
     while command != 'exit':
