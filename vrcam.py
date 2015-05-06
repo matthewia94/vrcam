@@ -4,13 +4,19 @@ import serial
 import cv2
 import SocketServer
 from videoThread import videoThread
-from UDPHandler import UDPHandler 
 
 __author__ = "Matt Anderson"
 
 #Open serial communication with arduino
 ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1);
 HOST, PORT = "localhost", 9999
+
+class UDPHandler(SocketServer.BaseRequestHandler):
+    def handle(self):
+        data = self.request[0].strip()
+        socket = self.request[1]
+        #print data
+        ser.write(data)
 
 def init(): 
     #OpenCV setup
@@ -37,7 +43,7 @@ if __name__ == "__main__":
     command = ''
     while command != 'exit':
         command = raw_input('command: ') 
-        if command != 'exit':
-            ser.write(command)
+        #if command != 'exit':
+            #ser.write(command)
     
     exit()
